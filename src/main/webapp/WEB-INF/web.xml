@@ -6,6 +6,69 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="false">
 
-         
+	<display-name>inventory42</display-name>
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>com.focusdays2014.inventory_core.UploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/UploadServlet</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<description></description>
+		<display-name>EANSearch</display-name>
+		<servlet-name>EANSearch</servlet-name>
+		<servlet-class>com.focusdays2014.inventory_core.EANSearch</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EANSearch</servlet-name>
+		<url-pattern>/EANSearch</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- ODATA -->
+	<servlet>
+		<servlet-name>OData</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
+			<param-value>org.odata4j.jersey.producer.resources.ODataApplication</param-value>
+		</init-param>
+		<!-- instead of -D approach -->
+		<init-param>
+			<param-name>odata4j.producerfactory</param-name>
+			<param-value>com.focusdays2014.inventory_core.odata_core.AddressBookJpaFactory</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OData</servlet-name>
+		<url-pattern>/odata.svc/*</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Servlet 2: Enable crossdomain access for browser clients -->
+	<servlet>
+		<servlet-name>CrossDomain</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>org.odata4j.producer.resources.RootApplication</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrossDomain</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
 </web-app>
 
