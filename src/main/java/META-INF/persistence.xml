@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
+    <!--  https://wiki.eclipse.org/EclipseLink/Examples/JPA/Tomcat_Web_Tutorial -->
 	<persistence-unit name="AddressBookServiceHibernate"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		
+		<!-- 
+			<non-jta-data-source>jdbc/MySQLDS</non-jta-data-source>
+		-->
 			<class>com.focusdays2014.inventory_core.odata.Customer</class>
 			<class>com.focusdays2014.inventory_core.odata.Inventory</class>
 			<class>com.focusdays2014.inventory_core.odata.Person</class>
-		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.user" value="adminA6CH4wh" />
-			<property name="javax.persistence.jdbc.password" value="guQLhfBB77df" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.4.178.130:3306/inventory" />
+			<property name="javax.persistence.jdbc.user" value="adminNZ66Arc" />
+			<property name="javax.persistence.jdbc.password" value="HjvxnPrFKW5Y" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.2.71.130:3306/inventory42" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.max_fetch_depth" value="3" />
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
