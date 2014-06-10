@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html >  
+  <head lang="en">
+    <meta charset="utf-8">
+  </head>
+  
+	  <body id="view" style="margin-left:8px;"
+        ng-app="app" 
+        ng-controller="main as vm" 
+        class="ng-cloak view">
+    <h1>Breeze Todos with AngularJS</h1>
+    <ul class=items>
+      <li data-ng-repeat="todo in vm.todos">
+        <input type="checkbox" data-ng-model="todo.isDone" />
+        <label data-ng-bind="todo.description" autofocus
+               data-ng-class="{ done: todo.isDone, archived: todo.isArchived }">
+       </label>
+      </li>
+    </ul>
+    <label class="error" data-ng-show="vm.errorMessage">{{vm.errorMessage}}</label>
+
+    <p>
+        <a href="http://www.breezejs.com" target="_blank">Breeze Home</a>
+    </p>
+    <h3>Log:</h3>
+
+    <div data-ng-repeat="log in vm.logList">{{log}}</div>
+
+    <!-- 3rd party libs -->
+   <!-- jQuery is required by bootstrap -->
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script data-require="angular.js@1.2.11" data-semver="1.2.11" src="http://code.angularjs.org/1.2.11/angular.min.js"></script>
+    <script src="https://rawgithub.com/IdeaBlade/Breeze/master/Breeze.Client/Scripts/breeze.min.js"></script>
+    <script src="https://rawgithub.com/IdeaBlade/Breeze/master/Breeze.Client/Scripts/Labs/breeze.angular.js"></script>
+    <script src="http://sampleservice.breezejs.com/scripts/plunkerHelpers.js"></script>    
+
+        
+    <!-- app libs -->
+    <script>
+      document.write('<base href="' + document.location + '" />');
+    </script>
+    <script src="app.js"></script>
+    <script src="datacontext.js"></script>
+    <script src="main.js"></script>
+    <script src="logger.js"></script>
+  </body>
+</html>
