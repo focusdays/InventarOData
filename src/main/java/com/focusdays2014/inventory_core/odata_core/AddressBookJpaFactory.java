@@ -11,6 +11,10 @@ import org.odata4j.producer.jpa.JPAProducer;
 
 public class AddressBookJpaFactory implements ODataProducerFactory {
 
+	public AddressBookJpaFactory() {
+		super();
+	}
+
 	@Override
 	public ODataProducer create(Properties properties) {
 		String persistenceUnitName = "AddressBookService" + JPAProvider.JPA_PROVIDER.caption;
