@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 
 import org.odata4j.core.Throwables;
 import org.odata4j.cxf.producer.server.ODataCxfServer;
-import org.odata4j.jersey.producer.resources.ODataApplication;
-import org.odata4j.jersey.producer.server.ODataJerseyServer;
 import org.odata4j.producer.resources.DefaultODataApplication;
 import org.odata4j.producer.resources.RootApplication;
 import org.odata4j.producer.server.ODataServer;
@@ -41,8 +39,8 @@ public class ODataServerFactory {
 
   public ODataServer createODataServer(String baseUri) {
     switch (impl) {
-    case JERSEY:
-      return new ODataJerseyServer(baseUri, ODataApplication.class, RootApplication.class);
+//    case JERSEY:
+//      return new ODataJerseyServer(baseUri, ODataApplication.class, RootApplication.class);
     case CXF:
       return new ODataCxfServer(baseUri, DefaultODataApplication.class, RootApplication.class);
     }

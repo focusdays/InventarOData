@@ -73,11 +73,11 @@
 			<artifactId>odata4j-cxf</artifactId>
 			<version>0.7.0</version>
 		</dependency>
-		<dependency>
+		<!--  dependency>
 			<groupId>org.odata4j</groupId>
 			<artifactId>odata4j-jersey</artifactId>
 			<version>0.7.0</version>
-		</dependency>
+		</dependency-->
 		
 		<!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
 		<dependency>
