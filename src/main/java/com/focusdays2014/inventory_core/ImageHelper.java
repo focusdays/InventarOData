@@ -60,8 +60,8 @@ public class ImageHelper {
 	@SuppressWarnings("deprecation")
 	private Document getHTML() throws IOException {
 		if (this.html == null) {
-//			Connection connect = Jsoup.connect(IMAGE_UPLOAD_URL + URLEncoder.encode(this.getFileName()));
-			Connection connect = Jsoup.connect("http://inventory42-focusdays2014.rhcloud.com/UploadServlet?name=cc3513b5-cb0a-4a55-9db5-4f775ac63578.jpeg");
+			Connection connect = Jsoup.connect(IMAGE_UPLOAD_URL + URLEncoder.encode(this.getFileName()));
+//			Connection connect = Jsoup.connect("http://inventory42-focusdays2014.rhcloud.com/UploadServlet?name=cc3513b5-cb0a-4a55-9db5-4f775ac63578.jpeg");
 			connect.followRedirects(true);
 			this.html = connect.get();
 		}
