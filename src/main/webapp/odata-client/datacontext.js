@@ -20,8 +20,7 @@ function datacontext($http, logger) {
   plunkerHelpers.isCorsCapable();
   
   var service = {
-    getAllTodos: getAllTodos,
-    reset: reset
+    getAllTodos: getAllTodos
   };
   return service;
   
