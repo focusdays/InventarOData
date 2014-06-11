@@ -31,8 +31,7 @@ public class UploadServlet extends HttpServlet {
 	private int maxFileSize = 5000 * 1024;
 	private int maxMemSize = 400 * 1024;
 
-	public void init() {
-		// Get the file location where it would be stored.
+	public UploadServlet() {
 		filePath = System.getProperty("java.io.tmpdir")+File.separator + "image-uploads"+File.separator;
 		new File(filePath).mkdirs();
 	}
@@ -73,7 +72,10 @@ public class UploadServlet extends HttpServlet {
 					FileItemWrapper fileItem = new FileItemWrapper(fi);
 					String name = UUID.randomUUID()+"."+fileItem.getExtension();
 					fi.write(new File(filePath+name));
-					out.println(request.getRequestURL()+"?name="+name);
+					response.setContentType("application/json");
+					out.println(
+							new ImageHelper(request.getRequestURL()+"?name="+name).getImagesJson());
+					out.flush();
 				}
 			}
 		} catch (Exception ex) {
