@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -59,7 +60,10 @@ public class ImageHelper {
 	@SuppressWarnings("deprecation")
 	private Document getHTML() throws IOException {
 		if (this.html == null) {
-			this.html = Jsoup.connect(IMAGE_UPLOAD_URL + URLEncoder.encode(this.getFileName())).get();
+//			Connection connect = Jsoup.connect(IMAGE_UPLOAD_URL + URLEncoder.encode(this.getFileName()));
+			Connection connect = Jsoup.connect("http://inventory42-focusdays2014.rhcloud.com/UploadServlet?name=cc3513b5-cb0a-4a55-9db5-4f775ac63578.jpeg");
+			connect.followRedirects(true);
+			this.html = connect.get();
 		}
 		return this.html;
 	}
