@@ -3,12 +3,31 @@
   <servlet>
     <servlet-name>UploadServlet</servlet-name>
     <servlet-class>com.focusdays2014.inventory_core.UploadServlet</servlet-class>
+    <init-param>
+        <param-name>detect</param-name>
+        <param-value>no</param-value>
+    </init-param>
   </servlet>
   
   <servlet-mapping>
     <servlet-name>UploadServlet</servlet-name>
     <url-pattern>/UploadServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UploadAndDetectServlet</servlet-name>
+    <servlet-class>com.focusdays2014.inventory_core.UploadServlet</servlet-class>
+    <init-param>
+        <param-name>detect</param-name>
+        <param-value>yes</param-value>
+    </init-param>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UploadAndDetectServlet</servlet-name>
+    <url-pattern>/UploadAndDetectServlet</url-pattern>
+  </servlet-mapping>
+  
   
   <servlet>
     <description></description>

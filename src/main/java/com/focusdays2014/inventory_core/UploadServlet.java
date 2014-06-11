@@ -26,10 +26,11 @@ public class UploadServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private boolean isMultipart;
+	private static int maxFileSize = 5000 * 1024;
+	private static int maxMemSize = 400 * 1024;
+	
 	private String filePath;
-	private int maxFileSize = 5000 * 1024;
-	private int maxMemSize = 400 * 1024;
+	private boolean detect;
 
 	public UploadServlet() {
 		filePath = System.getProperty("java.io.tmpdir")+File.separator + "image-uploads"+File.separator;
@@ -39,7 +40,7 @@ public class UploadServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 		// Check that we have a file upload request
-		isMultipart = ServletFileUpload.isMultipartContent(request);
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		java.io.PrintWriter out = response.getWriter();
 		if (!isMultipart) {
@@ -72,10 +73,13 @@ public class UploadServlet extends HttpServlet {
 					FileItemWrapper fileItem = new FileItemWrapper(fi);
 					String name = UUID.randomUUID()+"."+fileItem.getExtension();
 					fi.write(new File(filePath+name));
-					response.setContentType("application/json");
-					out.println(
-							new ImageHelper(request.getRequestURL()+"?name="+name).getImagesJson());
-					out.flush();
+					if (this.detect) {
+						response.setContentType("application/json");
+						out.println(
+								new ImageHelper(request.getRequestURL()+"?name="+name).getImagesJson());
+					} else {
+						out.println(request.getRequestURL()+"?name="+name);
+					}
 				}
 			}
 		} catch (Exception ex) {
@@ -109,5 +113,11 @@ public class UploadServlet extends HttpServlet {
 			openInputStream.close();
 		}
 		;
+	}
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		this.detect = "yes".equals(this.getInitParameter("detect"));
 	}
 }
