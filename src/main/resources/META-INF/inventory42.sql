@@ -2,8 +2,8 @@
 -- version 4.0.5
 -- http://www.phpmyadmin.net
 --
--- Host: 127.4.178.130:3306
--- Generation Time: Jun 09, 2014 at 01:08 PM
+-- Host: 127.2.71.130:3306
+-- Generation Time: Jun 11, 2014 at 11:32 PM
 -- Server version: 5.5.37
 -- PHP Version: 5.3.3
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `jbossews`
+-- Database: `inventory42`
 --
 
 -- --------------------------------------------------------
@@ -29,8 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -57,7 +56,14 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `customer` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_cdur1xk9cfpc96t9sdjuodtud` (`customer`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`id`, `location_address`, `location_city`, `location_country`, `location_latitude`, `location_longitude`, `location_postalcode`, `customer`) VALUES
+(1, 'Gablerackerstrasse 4', 'Wermatswil', 'Switzerland', 4.0113141515, 8.723423422, '8615', 1);
 
 -- --------------------------------------------------------
 
@@ -71,7 +77,14 @@ CREATE TABLE IF NOT EXISTS `PERSONS` (
   `emailaddress` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`personid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `PERSONS`
+--
+
+INSERT INTO `PERSONS` (`personid`, `birthday`, `emailaddress`, `name`) VALUES
+(1, '1969-04-13', 'lorenz.haenggi@bluewin.ch', 'Lorenz HÃ¤nggi');
 
 --
 -- Constraints for dumped tables
