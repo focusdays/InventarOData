@@ -1,3 +1,4 @@
+
 -- phpMyAdmin SQL Dump
 -- version 4.0.5
 -- http://www.phpmyadmin.net
@@ -32,12 +33,6 @@ CREATE TABLE IF NOT EXISTS `customer` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
--- Dumping data for table `customer`
---
-
-INSERT INTO `customer` (`id`, `email`) VALUES
-(1, 'lolo8304@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -59,12 +54,6 @@ CREATE TABLE IF NOT EXISTS `inventory` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `inventory`
---
-
-INSERT INTO `inventory` (`id`, `location_address`, `location_city`, `location_country`, `location_latitude`, `location_longitude`, `location_postalcode`, `customer`) VALUES
-(1, 'Gablerackerstrasse 4', 'Wermatswil', 'Switzerland', 4.0113141515, 8.723423422, '8615', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -78,13 +67,6 @@ CREATE TABLE IF NOT EXISTS `PERSONS` (
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`personid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `PERSONS`
---
-
-INSERT INTO `PERSONS` (`personid`, `birthday`, `emailaddress`, `name`) VALUES
-(1, '1969-04-13', 'lorenz.haenggi@bluewin.ch', 'Lorenz HÃ¤nggi');
 
 --
 -- Constraints for dumped tables
