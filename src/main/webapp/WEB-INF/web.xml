@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <servlet>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>com.focusdays2014.inventory_core.UploadServlet</servlet-class>
+    <init-param>
+        <param-name>detect</param-name>
+        <param-value>no</param-value>
+    </init-param>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UploadServlet</servlet-name>
+    <url-pattern>/UploadServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UploadAndDetectServlet</servlet-name>
+    <servlet-class>com.focusdays2014.inventory_core.UploadServlet</servlet-class>
+    <init-param>
+        <param-name>detect</param-name>
+        <param-value>yes</param-value>
+    </init-param>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UploadAndDetectServlet</servlet-name>
+    <url-pattern>/UploadAndDetectServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <description></description>
+    <display-name>EANSearch</display-name>
+    <servlet-name>EANSearch</servlet-name>
+    <servlet-class>com.focusdays2014.inventory_core.EANSearch</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EANSearch</servlet-name>
+    <url-pattern>/EANSearch</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OData</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
+      <param-value>org.odata4j.jersey.producer.resources.ODataApplication</param-value>
+    </init-param>
+    <init-param>
+      <param-name>odata4j.producerfactory</param-name>
+      <param-value>com.focusdays2014.inventory_core.odata_core.AddressBookJpaFactory</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OData</servlet-name>
+    <url-pattern>/odata.svc/*</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <display-name>inventory42</display-name>
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/MySQLDS</res-ref-name>
+  </resource-ref>
+</web-app>

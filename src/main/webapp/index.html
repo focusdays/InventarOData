@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>inventory - core base</title>
+</head>
+<body>
+	<h3>File Upload / NO detection:</h3>
+	Select a file to upload:
+	<br />
+	<form action="UploadServlet" method="post"
+		enctype="multipart/form-data">
+		<input type="file" name="file" size="50" /> <br /> 
+		<input type="submit" value="Upload File" />
+	</form>
+
+	<h3>File Upload / WITH detection:</h3>
+	Select a file to upload:
+	<br />
+	<form action="UploadAndDetectServlet" method="post"
+		enctype="multipart/form-data">
+		<input type="file" name="file" size="50" /> <br /> 
+		<input type="submit" value="Upload File" />
+	</form>
+
+	<h3>Barcode decoder:</h3>
+	<br />
+	<form action="EANSearch" method="get">
+		format=<input type="text" name="format" value="EAN_13"/><br>
+		contents=<input type="text" name="q" value="9783645601108"/><br>
+		
+		<input type="submit" value="encode" />
+	</form>
+
+	<h3>
+		Wireframes: <a href="Inventory.pdf" target="_blank">PDF</a> or <a
+			href="Inventory.html" target="_blank">HTML</a>
+	</h3>
+
+	<h3>
+		<a href="SpeechToTextDemo.apk">SpeechToTextDemo.apk</a>
+	</h3>
+
+
+<h1>ODATA services</h1>
+	<h3>
+		<a href="odata.svc">odata.svc</a>
+	</h3>
+	<h3>
+		<a href="odata-client">demo client</a>
+	</h3>
+
+
+</body>
+</html>
