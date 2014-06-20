@@ -1,73 +1,101 @@
 package com.focusdays2014.inventory_core;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.eclipse.jetty.util.log.Log;
 import org.odata4j.format.json.JsonWriter;
+
+import com.gargoylesoftware.htmlunit.IncorrectnessListener;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class ImageHelper {
 
 	final static String IMAGE_UPLOAD_URL = "http://images.google.ch/searchbyimage?image_url=";
 	
 	private String fileName;
-	private transient Document html;
+	private transient HtmlPage htmlPage;
+	
 	
 	public ImageHelper(String fileName) {
 		this.fileName = fileName;
 	}
 
-	public String detectKeywords() throws IOException {
-		Document html = this.getHTML();
-		Elements keywords = html.select(".qb-b");
-		if (keywords != null) return keywords.text();
-		return "";
-	}
 
 	public String getImagesJson() throws IOException {
-		List<Element> similarImagesMeta = getSimilarImages();
+		List<String> similarImagesMeta = getSimilarImages();
 		StringWriter writer = new StringWriter();
 		JsonWriter w = new JsonWriter(writer);
 		w.startObject();
 		w.writeName("image"); w.writeString(this.getFileName());
 		w.writeSeparator();
-		w.writeName("keywords"); w.writeString(this.detectKeywords());
+		w.writeName("keywords"); w.writeString(this.getKeywords());
 		w.writeSeparator();
 		w.writeName("similarImages");
 			w.startArray();
 			boolean start = true;
-			for (Element element : similarImagesMeta) {
+			for (String element : similarImagesMeta) {
 				if (!start) { w.writeSeparator(); } else { start = false; }
-				w.writeRaw(element.text());
+				w.writeRaw(element);
 			}
 			w.endArray();
 		w.endObject();
 		return writer.toString();
 	}
 
-	private List<Element> getSimilarImages() throws IOException {
-		Document html = this.getHTML();
-		List<Element> similarImagesMeta = html.select(".rg_meta");
-		return similarImagesMeta;
+	private List<String> getSimilarImages() throws IOException {
+		return this.findTags("div", "class", "rg_meta");
 	}
-
-	@SuppressWarnings("deprecation")
-	private Document getHTML() throws IOException {
-		if (this.html == null) {
-			Connection connect = Jsoup.connect(IMAGE_UPLOAD_URL + URLEncoder.encode(this.getFileName()));
-//			Connection connect = Jsoup.connect("http://inventory42-focusdays2014.rhcloud.com/UploadServlet?name=cc3513b5-cb0a-4a55-9db5-4f775ac63578.jpeg");
-			connect.followRedirects(true);
-			this.html = connect.get();
+	private String getKeywords() throws IOException {
+		for (String s : this.findTags("a", "class", "qb-b")) {
+			return s;
 		}
-		return this.html;
+		return "none";
 	}
 
+	private List<String> findTags(String tagName, String attrName, String value) throws IOException {
+		HtmlPage htmlPage = this.getHTML();
+		DomNodeList<DomElement> elementByName = htmlPage.getElementsByTagName(tagName);
+		List<String> similarStrings = new ArrayList<String>();
+		for (DomElement domElement : elementByName) {
+			if (value.equals(domElement.getAttribute(attrName))) {
+				similarStrings.add(domElement.asText());
+			}
+		}
+		return similarStrings;
+	}
+
+
+
+	private HtmlPage getHTML() throws IOException {
+		if (this.htmlPage == null) {
+			WebClient webClient = new WebClient();
+			String url = IMAGE_UPLOAD_URL + URLEncoder.encode("http://inventory42-focusdays2014.rhcloud.com/UploadAndDetectServlet?name=f09e551f-8db6-4911-b8a4-2b415556e72f.jpeg");
+			Log.getLogger(this.getClass()).info("Google image search query", url);
+			webClient.getOptions().setCssEnabled(false);
+			webClient.getOptions().setJavaScriptEnabled(true);
+			webClient.getOptions().setRedirectEnabled(true);
+			
+			webClient.getBrowserVersion().setUserAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36");
+			webClient.getBrowserVersion().setBrowserLanguage("en");
+			webClient.getBrowserVersion().setUserLanguage("en");
+
+			
+			this.htmlPage = webClient.getPage(url);
+			Log.getLogger(this.getClass()).info("Google image search response ", this.htmlPage.getUrl());
+		}
+		return this.htmlPage;
+	}
+	
+	
 	public String getFileName() {
 		return fileName;
 	}
