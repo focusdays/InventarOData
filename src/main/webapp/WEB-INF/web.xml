@@ -27,6 +27,10 @@
     <servlet-name>UploadAndDetectServlet</servlet-name>
     <url-pattern>/UploadAndDetectServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UploadAndDetectServlet</servlet-name>
+    <url-pattern>/DetectServlet</url-pattern>
+  </servlet-mapping>
   
   
   <servlet>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>image 2 text</title>
+</head>
+<body>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+
+function image2text() {
+	var name = $("#imageName").val();
+	var uri = "DetectServlet?name="+encodeURIComponent(name);
+	$( "#progress" ).html("started...");
+	$( "#uri" ).html(uri);
+	var jqxhr = $.getJSON(uri, function(data) {
+		  $( "#json" ).html( data );
+		  $( "#tag" ).html( data.keywords );
+		});
+	jqxhr.complete(function() {
+		$( "#progress" ).html("done");
+		});
+}
+
+</script>
+	image <input id="imageName" type="text" name="imageName" size="200" value="http://inventory42-focusdays2014.rhcloud.com/UploadAndDetectServlet?name=c6e3cd46-f4b4-4936-98e5-76462b950bd4.jpg"></input>
+	<input type="submit" onclick="javascript:image2text();false"> 
+	<br/>
+	<br/>
+		URI=<div id="uri"></div><br>
+		progress=<div id="progress"></div>
+	<br/>
+	<br/>
+	tag=<div id="tag"></div>
+	result=<div id="json"></div>
+
+</body>
+</html>
