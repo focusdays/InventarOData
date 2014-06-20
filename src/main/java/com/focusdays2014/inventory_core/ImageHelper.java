@@ -31,24 +31,30 @@ public class ImageHelper {
 
 
 	public String getImagesJson() throws IOException {
-		List<String> similarImagesMeta = getSimilarImages();
-		StringWriter writer = new StringWriter();
-		JsonWriter w = new JsonWriter(writer);
-		w.startObject();
-		w.writeName("image"); w.writeString(this.getFileName());
-		w.writeSeparator();
-		w.writeName("keywords"); w.writeString(this.getKeywords());
-		w.writeSeparator();
-		w.writeName("similarImages");
-			w.startArray();
-			boolean start = true;
-			for (String element : similarImagesMeta) {
-				if (!start) { w.writeSeparator(); } else { start = false; }
-				w.writeRaw(element);
+		try {
+			List<String> similarImagesMeta = getSimilarImages();
+			StringWriter writer = new StringWriter();
+			JsonWriter w = new JsonWriter(writer);
+			w.startObject();
+			w.writeName("image"); w.writeString(this.getFileName());
+			w.writeSeparator();
+			w.writeName("keywords"); w.writeString(this.getKeywords());
+			w.writeSeparator();
+			w.writeName("similarImages");
+				w.startArray();
+				boolean start = true;
+				for (String element : similarImagesMeta) {
+					if (!start) { w.writeSeparator(); } else { start = false; }
+					w.writeRaw(element);
+				}
+				w.endArray();
+			w.endObject();
+			return writer.toString();
+		} finally {
+			if (this.htmlPage != null) {
+				this.htmlPage.getWebClient().closeAllWindows();
 			}
-			w.endArray();
-		w.endObject();
-		return writer.toString();
+		}
 	}
 
 	private List<String> getSimilarImages() throws IOException {
