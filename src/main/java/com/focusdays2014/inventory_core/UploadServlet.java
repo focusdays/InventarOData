@@ -4,6 +4,7 @@ package com.focusdays2014.inventory_core;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLConnection;
 import java.util.Iterator;
@@ -75,8 +76,7 @@ public class UploadServlet extends HttpServlet {
 					fi.write(new File(filePath+name));
 					if (this.detect) {
 						response.setContentType("application/json");
-						out.println(
-								new ImageHelper(request.getRequestURL()+"?name="+name).getImagesJson());
+						out.println(this.getImagesJson(request.getRequestURL()+"?name="+name));
 					} else {
 						out.println(request.getRequestURL()+"?name="+name);
 					}
@@ -86,33 +86,43 @@ public class UploadServlet extends HttpServlet {
 			System.out.println(ex);
 		}
 	}
+	
+	private String getImagesJson(String url) throws IOException {
+		return new ImageHelper(url).getImagesJson();
+	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
-		File file = new File(filePath + request.getParameter("name"));
-		FileInputStream openInputStream = FileUtils.openInputStream(file);
-		try {
-			String mimeType= URLConnection.guessContentTypeFromName(request.getParameter("name"));
-			byte[] bytes = new byte[4096];
-			int total = 0;
-			int len = openInputStream.read(bytes);
-			OutputStream out = new BufferedOutputStream(response.getOutputStream(), 4096);
+		String name=request.getParameter("name");
+		java.io.PrintWriter out = response.getWriter();
+		if (this.detect)  {
+			response.setContentType("application/json");
+			out.println(this.getImagesJson(request.getRequestURL()+"?name="+name));
+		} else {
+			File file = new File(filePath + request.getParameter("name"));
+			FileInputStream openInputStream = FileUtils.openInputStream(file);
 			try {
-				while (len > 0) {
-					out.write(bytes, 0, len);
-					total += len;
-					len = openInputStream.read(bytes);
+				String mimeType= URLConnection.guessContentTypeFromName(request.getParameter("name"));
+				byte[] bytes = new byte[4096];
+				int total = 0;
+				int len = openInputStream.read(bytes);
+				OutputStream outStream = new BufferedOutputStream(response.getOutputStream(), 4096);
+				try {
+					while (len > 0) {
+						outStream.write(bytes, 0, len);
+						total += len;
+						len = openInputStream.read(bytes);
+					}
+					response.setContentType(mimeType);
+					response.setContentLength(total);
+				} finally {
+					outStream.close();
 				}
-				response.setContentType(mimeType);
-				response.setContentLength(total);
+				
 			} finally {
-				out.close();
+				openInputStream.close();
 			}
-			
-		} finally {
-			openInputStream.close();
 		}
-		;
 	}
 
 	@Override

@@ -18,7 +18,7 @@ import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class ImageHelper {
-
+ 
 	final static String IMAGE_UPLOAD_URL = "http://images.google.ch/searchbyimage?image_url=";
 	
 	private String fileName;
