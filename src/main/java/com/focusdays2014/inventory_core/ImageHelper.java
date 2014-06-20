@@ -78,7 +78,7 @@ public class ImageHelper {
 	private HtmlPage getHTML() throws IOException {
 		if (this.htmlPage == null) {
 			WebClient webClient = new WebClient();
-			String url = IMAGE_UPLOAD_URL + URLEncoder.encode("http://inventory42-focusdays2014.rhcloud.com/UploadAndDetectServlet?name=f09e551f-8db6-4911-b8a4-2b415556e72f.jpeg");
+			String url = IMAGE_UPLOAD_URL + URLEncoder.encode(this.getFileName());
 			Log.getLogger(this.getClass()).info("Google image search query", url);
 			webClient.getOptions().setCssEnabled(false);
 			webClient.getOptions().setJavaScriptEnabled(true);
