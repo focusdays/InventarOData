@@ -9,9 +9,8 @@ import javax.persistence.*;
  */
 @Embeddable
 public class DevicePK implements Serializable {
-	//default serial version id, required for serializable classes.
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 6949600034975301465L;
+	
 	private int deviceID;
 
 	@Column(insertable=false, updatable=false)
