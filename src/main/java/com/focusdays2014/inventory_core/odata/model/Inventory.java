@@ -1,7 +1,9 @@
 package com.focusdays2014.inventory_core.odata.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -16,9 +18,21 @@ import java.util.List;
 public class Inventory implements Serializable {
 	private static final long serialVersionUID = 7790496648806854392L;
 
-	@EmbeddedId
-	private InventoryPK id;
+//	@EmbeddedId
+//	private InventoryPK id;
+	
+	// TODO: Workaround
+	@Id
+	private int inventoryID;
+	public int getInventoryID() {
+		return inventoryID;
+	}
+	public void setInventoryID(int inventoryID) {
+		this.inventoryID = inventoryID;
+	}
 
+	
+	
 	private int currency;
 
 	private String inventoryTitle;
@@ -47,13 +61,13 @@ public class Inventory implements Serializable {
 	public Inventory() {
 	}
 
-	public InventoryPK getId() {
-		return this.id;
-	}
-
-	public void setId(InventoryPK id) {
-		this.id = id;
-	}
+//	public InventoryPK getId() {
+//		return this.id;
+//	}
+//
+//	public void setId(InventoryPK id) {
+//		this.id = id;
+//	}
 
 	public int getCurrency() {
 		return this.currency;
