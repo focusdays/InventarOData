@@ -47,8 +47,20 @@ public class Inventory implements Serializable {
 	private Date mutationTimestamp;
 
 	//bi-directional many-to-many association to Commodity
+	//TODO: With Hibernate Bug Workaround -reverse JoinTable
 	@ManyToMany(mappedBy="inventories")
-	private List<Commodity> commodities;
+	@JoinTable(
+			name="inventory_has_commodity"
+			, joinColumns={
+				@JoinColumn(name="inventory_inventoryID", referencedColumnName="inventoryID"),
+				@JoinColumn(name="inventory_location_locationID", referencedColumnName="location_locationID"),
+				@JoinColumn(name="inventory_person_personID", referencedColumnName="person_personID")
+				}
+			, inverseJoinColumns={
+				@JoinColumn(name="commodity_commodityID")
+				}
+			)
+		private List<Commodity> commodities;
 
 	//bi-directional many-to-one association to Location
 	@ManyToOne
