@@ -19,7 +19,12 @@ public class Device implements Serializable {
 	// TODO: Workaround
 	@Id
 	private int deviceID;
-	
+	public int getDeviceID() {
+		return deviceID;
+	}
+	public void setDeviceID(int deviceID) {
+		this.deviceID = deviceID;
+	}
 	
 	
 	private String deviceName;
@@ -43,17 +48,8 @@ public class Device implements Serializable {
 //		this.id = id;
 //	}
 	
-	// TODO: Workaround
-	public int getDeviceID() {
-		return deviceID;
-	}
-
-	public void setDeviceID(int deviceID) {
-		this.deviceID = deviceID;
-	}
 	
 	
-
 	public String getDeviceName() {
 		return this.deviceName;
 	}
