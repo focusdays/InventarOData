@@ -13,9 +13,15 @@ import javax.persistence.*;
 public class Device implements Serializable {
 	private static final long serialVersionUID = 1461073131484869929L;
 
-	@EmbeddedId
-	private DevicePK id;
-
+//	@EmbeddedId
+//	private DevicePK id;
+	
+	// TODO: Workaround
+	@Id
+	private int deviceID;
+	
+	
+	
 	private String deviceName;
 
 	private String deviceType;
@@ -26,14 +32,27 @@ public class Device implements Serializable {
 
 	public Device() {
 	}
+	
+	
 
-	public DevicePK getId() {
-		return this.id;
+//	public DevicePK getId() {
+//		return this.id;
+//	}
+//
+//	public void setId(DevicePK id) {
+//		this.id = id;
+//	}
+	
+	// TODO: Workaround
+	public int getDeviceID() {
+		return deviceID;
 	}
 
-	public void setId(DevicePK id) {
-		this.id = id;
+	public void setDeviceID(int deviceID) {
+		this.deviceID = deviceID;
 	}
+	
+	
 
 	public String getDeviceName() {
 		return this.deviceName;
