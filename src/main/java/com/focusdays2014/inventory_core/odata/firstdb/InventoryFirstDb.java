@@ -1,4 +1,4 @@
-package com.focusdays2014.inventory_core.odata;
+package com.focusdays2014.inventory_core.odata.firstdb;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -7,11 +7,12 @@ import javax.persistence.*;
 /**
  * The persistent class for the inventory database table.
  * 
- */
+ 
 @Entity
 @Table(name="inventory")
-@NamedQuery(name="Inventory.findAll", query="SELECT i FROM Inventory i")
-public class Inventory implements Serializable {
+@NamedQuery(name="InventoryFirstDb.findAll", query="SELECT i FROM Inventory i")
+*/
+public class InventoryFirstDb implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,9 +41,9 @@ public class Inventory implements Serializable {
 	//bi-directional many-to-one association to Customer
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="customer", nullable=false)
-	private Customer customerBean;
+	private CustomerFirstDb customerBean;
 
-	public Inventory() {
+	public InventoryFirstDb() {
 	}
 
 	public int getId() {
@@ -101,11 +102,11 @@ public class Inventory implements Serializable {
 		this.locationPostalcode = locationPostalcode;
 	}
 
-	public Customer getCustomerBean() {
+	public CustomerFirstDb getCustomerBean() {
 		return this.customerBean;
 	}
 
-	public void setCustomerBean(Customer customerBean) {
+	public void setCustomerBean(CustomerFirstDb customerBean) {
 		this.customerBean = customerBean;
 	}
 

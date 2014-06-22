@@ -1,4 +1,4 @@
-package com.focusdays2014.inventory_core.odata;
+package com.focusdays2014.inventory_core.odata.firstdb;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -8,11 +8,12 @@ import java.util.Date;
 /**
  * The persistent class for the PERSONS database table.
  * 
- */
+
 @Entity
 @Table(name="PERSONS")
-@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
-public class Person implements Serializable {
+@NamedQuery(name="PersonFirstDb.findAll", query="SELECT p FROM Person p")
+ */
+public class PersonFirstDb implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,7 +30,7 @@ public class Person implements Serializable {
 	@Column(length=255)
 	private String name;
 
-	public Person() {
+	public PersonFirstDb() {
 	}
 
 	public int getPersonid() {
