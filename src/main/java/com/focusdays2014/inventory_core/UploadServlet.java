@@ -94,35 +94,46 @@ public class UploadServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 		String name=request.getParameter("name");
+		String url=request.getParameter("url");
 		String detect=request.getParameter("detect");
 		if ("true".equals(detect)) {
 			response.setContentType("application/json");
 			java.io.PrintWriter out = response.getWriter();
-			out.println(this.getImagesJson(request.getRequestURL()+"?name="+name));
-		} else {
-			File file = new File(filePath + request.getParameter("name"));
-			FileInputStream openInputStream = FileUtils.openInputStream(file);
-			try {
-				String mimeType= URLConnection.guessContentTypeFromName(request.getParameter("name"));
-				byte[] bytes = new byte[4096];
-				int total = 0;
-				int len = openInputStream.read(bytes);
-				OutputStream outStream = new BufferedOutputStream(response.getOutputStream(), 4096);
-				try {
-					while (len > 0) {
-						outStream.write(bytes, 0, len);
-						total += len;
-						len = openInputStream.read(bytes);
-					}
-					response.setContentType(mimeType);
-					response.setContentLength(total);
-				} finally {
-					outStream.close();
-				}
-				
-			} finally {
-				openInputStream.close();
+			if (name != null && !name.equals("")) {
+				out.println(this.getImagesJson(request.getRequestURL()+"?name="+name));
+			} else if (url != null && !url.equals("")) {
+				out.println(this.getImagesJson(url));
 			}
+		} else {
+			if (name != null && !name.equals("")) {
+				File file = new File(filePath + request.getParameter("name"));
+				FileInputStream openInputStream = FileUtils.openInputStream(file);
+				try {
+					String mimeType= URLConnection.guessContentTypeFromName(request.getParameter("name"));
+					byte[] bytes = new byte[4096];
+					int total = 0;
+					int len = openInputStream.read(bytes);
+					OutputStream outStream = new BufferedOutputStream(response.getOutputStream(), 4096);
+					try {
+						while (len > 0) {
+							outStream.write(bytes, 0, len);
+							total += len;
+							len = openInputStream.read(bytes);
+						}
+						response.setContentType(mimeType);
+						response.setContentLength(total);
+					} finally {
+						outStream.close();
+					}
+					
+				} finally {
+					openInputStream.close();
+				}
+			} else if (url != null && !url.equals("")) {
+				java.io.PrintWriter out = response.getWriter();
+				out.println(url);
+			}
+
 		}
 	}
 

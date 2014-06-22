@@ -1,17 +1,14 @@
 package com.focusdays2014.inventory_core;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.eclipse.jetty.util.log.Log;
 import org.odata4j.format.json.JsonWriter;
 
-import com.gargoylesoftware.htmlunit.IncorrectnessListener;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;

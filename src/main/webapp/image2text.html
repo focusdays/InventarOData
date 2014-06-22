@@ -1,22 +1,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>image 2 text</title>
 </head>
 <body>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
 
-function image2text() {
-	var name = $("#imageName").val();
-	var uri = "DetectServlet?detect=true&name="+encodeURIComponent(name);
+function image2text(isURL) {
+	var name;
+	var uri;
+	if (isURL) {
+		name = $("#imageURL").val();
+		uri = "DetectServlet?detect=true&url="+encodeURIComponent(name);
+		imageuri = "DetectServlet?url="+encodeURIComponent(name);
+	} else {
+		name = $("#imageName").val();
+		uri = "DetectServlet?detect=true&name="+encodeURIComponent(name);
+		imageuri = name;
+	}
 	$( "#progress" ).html("started...");
 	$( "#uri" ).html(uri);
+	$( "#uri" ).attr("href", imageuri);
 	var jqxhr = $.getJSON(uri, function(data) {
-		  $( "#json" ).html( data );
+		  $( "#json" ).html( "<prev>"+JSON.stringify(data)+"</prev" );
 		  $( "#tag" ).html( data.keywords );
 		  $( "#image" ).attr("src", data.image)
+		  $( "#imageURI" ).attr("href", data.image)
 		});
 	jqxhr.complete(function() {
 		$( "#progress" ).html("done");
@@ -24,17 +34,23 @@ function image2text() {
 }
 
 </script>
-	image <input id="imageName" type="text" name="imageName" size="200" value="http://inventory42-focusdays2014.rhcloud.com/UploadAndDetectServlet?name=c6e3cd46-f4b4-4936-98e5-76462b950bd4.jpg"></input>
-	<input type="submit" onclick="javascript:image2text();false"> 
+	URL <input id="imageURL" type="text" name="imageName" size="100" value="http://www.stuttgarter-nachrichten.de/media.media.0edb2fbf-a641-47b4-ae8e-a43d8f5780cc.normalized.jpeg"></input>
+	<input type="submit" onclick="javascript:image2text(true);false"> <br>
+
+	image <input id="imageName" type="text" name="imageName" size="100" value="9cac32ea-40cf-4a19-9022-09e003cd6a74.jpeg"></input>
+	<input type="submit" onclick="javascript:image2text(false);false"> <br>
 	<br/>
 	<br/>
-		URI=<div id="uri"></div><br>
+		URI=<a target="_blank" href="" id="uri"></a><br>
 		progress=<div id="progress"></div>
 	<br/>
 	<br/>
 	tag=<div id="tag"></div>
+	<br/>
+	image=<a id="imageURI" target="_blank" href=""><image width="200" id="image" src=""/></a> (click to open image)
+	<br/>
 	result=<div id="json"></div>
-	image=<image width="300" id="image" src=""/>
+	<br/>
 
 </body>
 </html>
