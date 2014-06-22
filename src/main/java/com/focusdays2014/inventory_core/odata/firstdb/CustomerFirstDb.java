@@ -1,4 +1,4 @@
-package com.focusdays2014.inventory_core.odata;
+package com.focusdays2014.inventory_core.odata.firstdb;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -8,11 +8,12 @@ import java.util.List;
 /**
  * The persistent class for the customer database table.
  * 
- */
+
 @Entity
 @Table(name="customer")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c") 
-public class Customer implements Serializable {
+ */
+public class CustomerFirstDb implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,9 +26,9 @@ public class Customer implements Serializable {
 
 	//bi-directional many-to-one association to Inventory
 	@OneToMany(mappedBy="customerBean")
-	private List<Inventory> inventories;
+	private List<InventoryFirstDb> inventories;
 
-	public Customer() {
+	public CustomerFirstDb() {
 	}
 
 	public int getId() {
@@ -46,22 +47,22 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public List<Inventory> getInventories() {
+	public List<InventoryFirstDb> getInventories() {
 		return this.inventories;
 	}
 
-	public void setInventories(List<Inventory> inventories) {
+	public void setInventories(List<InventoryFirstDb> inventories) {
 		this.inventories = inventories;
 	}
 
-	public Inventory addInventory(Inventory inventory) {
+	public InventoryFirstDb addInventory(InventoryFirstDb inventory) {
 		getInventories().add(inventory);
 		inventory.setCustomerBean(this);
 
 		return inventory;
 	}
 
-	public Inventory removeInventory(Inventory inventory) {
+	public InventoryFirstDb removeInventory(InventoryFirstDb inventory) {
 		getInventories().remove(inventory);
 		inventory.setCustomerBean(null);
 
