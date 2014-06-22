@@ -94,9 +94,10 @@ public class UploadServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 		String name=request.getParameter("name");
-		java.io.PrintWriter out = response.getWriter();
-		if (this.detect)  {
+		String detect=request.getParameter("detect");
+		if ("true".equals(detect)) {
 			response.setContentType("application/json");
+			java.io.PrintWriter out = response.getWriter();
 			out.println(this.getImagesJson(request.getRequestURL()+"?name="+name));
 		} else {
 			File file = new File(filePath + request.getParameter("name"));
@@ -129,5 +130,6 @@ public class UploadServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		this.detect = "yes".equals(this.getInitParameter("detect"));
+		
 	}
 }
