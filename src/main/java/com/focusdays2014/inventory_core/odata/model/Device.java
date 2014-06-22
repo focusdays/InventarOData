@@ -1,7 +1,6 @@
 package com.focusdays2014.inventory_core.odata.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 
@@ -23,7 +22,6 @@ public class Device implements Serializable {
 
 	//bi-directional many-to-one association to Person
 	@ManyToOne
-	@Column(insertable=false, updatable=false)
 	private Person person;
 
 	public Device() {
