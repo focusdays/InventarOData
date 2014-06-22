@@ -10,12 +10,13 @@
 
 function image2text() {
 	var name = $("#imageName").val();
-	var uri = "DetectServlet?name="+encodeURIComponent(name);
+	var uri = "DetectServlet?detect=true&name="+encodeURIComponent(name);
 	$( "#progress" ).html("started...");
 	$( "#uri" ).html(uri);
 	var jqxhr = $.getJSON(uri, function(data) {
 		  $( "#json" ).html( data );
 		  $( "#tag" ).html( data.keywords );
+		  $( "#image" ).attr("src", data.image)
 		});
 	jqxhr.complete(function() {
 		$( "#progress" ).html("done");
@@ -33,6 +34,7 @@ function image2text() {
 	<br/>
 	tag=<div id="tag"></div>
 	result=<div id="json"></div>
+	image=<image width="300" id="image" src=""/>
 
 </body>
 </html>
