@@ -48,7 +48,8 @@ public class Inventory implements Serializable {
 
 	//bi-directional many-to-many association to Commodity
 	//TODO: With Hibernate Bug Workaround -reverse JoinTable
-	@ManyToMany(mappedBy="inventories")
+	//@ManyToMany(mappedBy="inventories")
+	@ManyToMany
 	@JoinTable(
 			name="inventory_has_commodity"
 			, joinColumns={
