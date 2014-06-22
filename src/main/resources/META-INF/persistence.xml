@@ -22,7 +22,8 @@
 			<property name="javax.persistence.jdbc.password" value="HjvxnPrFKW5Y" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.2.71.130:3306/inventorydb" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.max_fetch_depth" value="3" />
+			<property name="hibernate.max_fetch_depth" value="5" />
+			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>
 	</persistence-unit>	
