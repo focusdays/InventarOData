@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="Device.findAll", query="SELECT d FROM Device d")
 public class Device implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1461073131484869929L;
 
 	@EmbeddedId
 	private DevicePK id;

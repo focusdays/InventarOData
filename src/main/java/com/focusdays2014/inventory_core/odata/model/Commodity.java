@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Commodity.findAll", query="SELECT c FROM Commodity c")
 public class Commodity implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4381530028393292397L;
 
 	@Id
 	private int commodityID;
