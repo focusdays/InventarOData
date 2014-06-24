@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `inventory` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `inventory`;
+CREATE DATABASE  IF NOT EXISTS `inventory42` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `inventory42`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost    Database: inventory
+-- Host: localhost    Database: inventory42
 -- ------------------------------------------------------
 -- Server version	5.6.14
 
@@ -46,12 +46,12 @@ CREATE TABLE `Commodity` (
 
 LOCK TABLES `Commodity` WRITE;
 /*!40000 ALTER TABLE `Commodity` DISABLE KEYS */;
-INSERT INTO `Commodity` VALUES (1,'Chair Toro Rosso',1,NULL,1234.99,'inventory42/Commodity/1','2014-06-22 00:01:00',3),(2,'Tisch Yellow Duck',1,NULL,2222.00,'inventory42/Commodity/2','2014-06-22 00:01:00',3),(3,'Esszimmer Max',NULL,1,0.00,'inventory42/Commodity/3','2014-06-22 00:01:00',NULL);
+INSERT INTO `Commodity` VALUES (1,'Chair Toro Rosso',1,NULL,1234.99,'chair.jpg','2014-06-22 00:01:00',3),(2,'Tisch Yellow Duck',1,NULL,2222.00,'duck.jpg','2014-06-22 00:01:00',3),(3,'Esszimmer Max',NULL,1,0.00,'esszimmer.jpg','2014-06-22 00:01:00',NULL);
 /*!40000 ALTER TABLE `Commodity` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `device`
+-- Table structure for table `Device`
 --
 
 DROP TABLE IF EXISTS `Device`;
@@ -80,7 +80,7 @@ INSERT INTO `Device` VALUES (1,'Samsung S5','Android','max@muster.ch'),(2,'IPhon
 UNLOCK TABLES;
 
 --
--- Table structure for table `inventory`
+-- Table structure for table `Inventory`
 --
 
 DROP TABLE IF EXISTS `Inventory`;
@@ -106,7 +106,7 @@ CREATE TABLE `Inventory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inventory`
+-- Dumping data for table `Inventory`
 --
 
 LOCK TABLES `Inventory` WRITE;
@@ -145,7 +145,7 @@ INSERT INTO `inventory_has_commodity` VALUES (1,'max@muster.ch',1,1),(1,'max@mus
 UNLOCK TABLES;
 
 --
--- Table structure for table `location`
+-- Table structure for table `Location`
 --
 
 DROP TABLE IF EXISTS `Location`;
@@ -167,7 +167,7 @@ CREATE TABLE `Location` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `location`
+-- Dumping data for table `Location`
 --
 
 LOCK TABLES `Location` WRITE;
@@ -177,7 +177,7 @@ INSERT INTO `Location` VALUES (1,1,'Muster Haus',1234.123456,9999.999999,NULL,NU
 UNLOCK TABLES;
 
 --
--- Table structure for table `person`
+-- Table structure for table `Person`
 --
 
 DROP TABLE IF EXISTS `Person`;
@@ -192,7 +192,7 @@ CREATE TABLE `Person` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `person`
+-- Dumping data for table `Person`
 --
 
 LOCK TABLES `Person` WRITE;
