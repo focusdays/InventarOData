@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `inventory42` /*!40100 DEFAULT CHARACTER SET utf8
 USE `inventory42`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost    Database: inventory42
+-- Host: localhost   Database: inventory42
 -- ------------------------------------------------------
 -- Server version	5.6.14
 
