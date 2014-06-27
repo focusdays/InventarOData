@@ -17,6 +17,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class ImageHelper {
  
 	final static String IMAGE_UPLOAD_URL = "http://images.google.ch/searchbyimage?image_url=";
+	static WebClient WEB_CLIENT;
 	
 	private String fileName;
 	private transient HtmlPage htmlPage;
@@ -49,7 +50,7 @@ public class ImageHelper {
 			return writer.toString();
 		} finally {
 			if (this.htmlPage != null) {
-				this.htmlPage.getWebClient().closeAllWindows();
+				this.htmlPage.cleanUp();
 			}
 		}
 	}
@@ -80,22 +81,27 @@ public class ImageHelper {
 
 	private HtmlPage getHTML() throws IOException {
 		if (this.htmlPage == null) {
-			WebClient webClient = new WebClient();
 			String url = IMAGE_UPLOAD_URL + URLEncoder.encode(this.getFileName());
 			Log.getLogger(this.getClass()).info("Google image search query", url);
-			webClient.getOptions().setCssEnabled(false);
-			webClient.getOptions().setJavaScriptEnabled(true);
-			webClient.getOptions().setRedirectEnabled(true);
-			
-			webClient.getBrowserVersion().setUserAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36");
-			webClient.getBrowserVersion().setBrowserLanguage("en");
-			webClient.getBrowserVersion().setUserLanguage("en");
-
-			
-			this.htmlPage = webClient.getPage(url);
+			this.htmlPage = getWebClient().getPage(url);
 			Log.getLogger(this.getClass()).info("Google image search response ", this.htmlPage.getUrl());
 		}
 		return this.htmlPage;
+	}
+
+
+	private static synchronized WebClient getWebClient() {
+		if (WEB_CLIENT == null) {
+			WebClient webClient = new WebClient();
+			webClient.getOptions().setCssEnabled(false);
+			webClient.getOptions().setJavaScriptEnabled(true);
+			webClient.getOptions().setRedirectEnabled(true);
+			webClient.getBrowserVersion().setUserAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36");
+			webClient.getBrowserVersion().setBrowserLanguage("en");
+			webClient.getBrowserVersion().setUserLanguage("en");
+			WEB_CLIENT = webClient;
+		}
+		return WEB_CLIENT;
 	}
 	
 	
