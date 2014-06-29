@@ -52,7 +52,7 @@
     </init-param>
     <init-param>
       <param-name>odata4j.producerfactory</param-name>
-      <param-value>com.focusdays2014.inventory_core.odata_core.AddressBookJpaFactory</param-value>
+      <param-value>com.focusdays2014.inventory_core.odata_core.InventoryJpaFactory</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
