@@ -13,7 +13,7 @@ function image2text(isURL) {
 	if (isURL) {
 		name = $("#imageURL").val();
 		uri = "DetectServlet?detect=true&url="+encodeURIComponent(name);
-		imageuri = "DetectServlet?url="+encodeURIComponent(name);
+		imageuri = "DetectServlet?detect=true&url="+encodeURIComponent(name);
 	} else {
 		name = $("#imageName").val();
 		uri = "DetectServlet?detect=true&name="+encodeURIComponent(name);
@@ -23,7 +23,14 @@ function image2text(isURL) {
 	$( "#uri" ).html(uri);
 	$( "#uri" ).attr("href", imageuri);
 	var jqxhr = $.getJSON(uri, function(data) {
-		  $( "#json" ).html( "<prev>"+JSON.stringify(data)+"</prev" );
+	 	  var similarImages = data.similarImages;
+	 	  $( "#json" ).html("");
+		  for(var i = 0; i < similarImages.length; i++) {
+			  $( "#json" ).append("<div>")
+			  $( "#json" ).append("<b>"+similarImages[i].pt+"</b><br/>");
+			  $( "#json" ).append("<a href=\""+similarImages[i].ru+"\"><img width=\"200\" src=\""+similarImages[i].tu+"\" alt=\""+similarImages[i].pt+"\"></a>");
+			  $( "#json" ).append("</div><br/>");
+		  }
 		  $( "#tag" ).html( data.keywords );
 		  $( "#image" ).attr("src", data.image)
 		  $( "#imageURI" ).attr("href", data.image)
