@@ -89,8 +89,8 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <display-name>inventory42</display-name>
-  <resource-ref>
+  <!-- resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/MySQLDS</res-ref-name>
-  </resource-ref>
+  </resource-ref-->
 </web-app>
