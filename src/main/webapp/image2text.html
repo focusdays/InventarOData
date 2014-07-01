@@ -12,16 +12,16 @@ function image2text(isURL) {
 	var uri;
 	if (isURL) {
 		name = $("#imageURL").val();
-		uri = "DetectServlet?detect=true&url="+encodeURIComponent(name);
-		imageuri = "DetectServlet?detect=true&url="+encodeURIComponent(name);
+		uri = 		"DetectServlet?detect=true&url="+encodeURIComponent(name);
+		imageuri = 	name;
 	} else {
 		name = $("#imageName").val();
-		uri = "DetectServlet?detect=true&name="+encodeURIComponent(name);
-		imageuri = name;
+		uri = 		"DetectServlet?detect=true&name="+encodeURIComponent(name);
+		imageuri = 	"DetectServlet?detect=true&name="+encodeURIComponent(name);
 	}
 	$( "#progress" ).html("started...");
 	$( "#uri" ).html(uri);
-	$( "#uri" ).attr("href", imageuri);
+	$( "#uri" ).attr("href", uri);
 	var jqxhr = $.getJSON(uri, function(data) {
 	 	  var similarImages = data.similarImages;
 	 	  $( "#json" ).html("");
