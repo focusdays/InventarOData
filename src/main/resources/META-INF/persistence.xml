@@ -5,22 +5,24 @@
 	<persistence-unit name="InventoryServiceHibernate"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.focusdays2014.inventory_core.odata.model.Device</class>
+		<class>com.focusdays2014.inventory_core.odata.model.DevicePK</class>
+		<class>com.focusdays2014.inventory_core.odata.model.Inventory</class>
+		<class>com.focusdays2014.inventory_core.odata.model.InventoryPK</class>
+		<class>com.focusdays2014.inventory_core.odata.model.Location</class>
+		<class>com.focusdays2014.inventory_core.odata.model.Person</class>
+		<class>com.focusdays2014.inventory_core.odata.model.Commodity</class>
+		
+		
 		<!-- 
 			<non-jta-data-source>jdbc/MySQLDS</non-jta-data-source>
 		-->
-			<class>com.focusdays2014.inventory_core.odata.model.Commodity</class>
-			<class>com.focusdays2014.inventory_core.odata.model.Device</class>
-			<class>com.focusdays2014.inventory_core.odata.model.DevicePK</class>
-			<class>com.focusdays2014.inventory_core.odata.model.Inventory</class>
-			<class>com.focusdays2014.inventory_core.odata.model.InventoryPK</class>
-			<class>com.focusdays2014.inventory_core.odata.model.Location</class>
-			<class>com.focusdays2014.inventory_core.odata.model.Person</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="adminKCXUGp5" />
 			<property name="javax.persistence.jdbc.password" value="LeEFuzqWmSMl" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.10.246.2:3306/inventory42" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/inventory4" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.max_fetch_depth" value="5" />
 			<property name="hibernate.show_sql" value="true"/>

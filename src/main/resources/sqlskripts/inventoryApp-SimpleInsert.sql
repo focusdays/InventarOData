@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `inventory3` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `inventory3`;
+CREATE DATABASE  IF NOT EXISTS `inventory2` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `inventory2`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost   Database: inventory3
+-- Host: localhost   Database: inventory2
 -- ------------------------------------------------------
 -- Server version	5.6.14
 
@@ -124,12 +124,10 @@ DROP TABLE IF EXISTS `inventory_has_commodity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inventory_has_commodity` (
   `inventory_inventoryID` int(11) NOT NULL,
-  `inventory_person_personID` varchar(200) NOT NULL,
-  `inventory_location_locationID` int(11) NOT NULL,
   `commodity_commodityID` int(11) NOT NULL,
   KEY `fk_inventory_has_commodity_commodity1_idx` (`commodity_commodityID`),
-  KEY `fk_inventory_has_commodity_inventory1_idx` (`inventory_inventoryID`,`inventory_person_personID`,`inventory_location_locationID`),
-  CONSTRAINT `fk_inventory_has_commodity_inventory1` FOREIGN KEY (`inventory_inventoryID`, `inventory_person_personID`, `inventory_location_locationID`) REFERENCES `Inventory` (`inventoryID`, `person_personID`, `location_locationID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_inventory_has_commodity_inventory1_idx` (`inventory_inventoryID`),
+  CONSTRAINT `fk_inventory_has_commodity_inventory1` FOREIGN KEY (`inventory_inventoryID`) REFERENCES `Inventory` (`inventoryID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inventory_has_commodity_commodity1` FOREIGN KEY (`commodity_commodityID`) REFERENCES `Commodity` (`commodityID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -140,7 +138,7 @@ CREATE TABLE `inventory_has_commodity` (
 
 LOCK TABLES `inventory_has_commodity` WRITE;
 /*!40000 ALTER TABLE `inventory_has_commodity` DISABLE KEYS */;
-INSERT INTO `inventory_has_commodity` VALUES (1,'max@muster.ch',1,1),(1,'max@muster.ch',1,2),(1,'max@muster.ch',1,3);
+INSERT INTO `inventory_has_commodity` VALUES (1,1),(1,2),(1,3);
 /*!40000 ALTER TABLE `inventory_has_commodity` ENABLE KEYS */;
 UNLOCK TABLES;
 

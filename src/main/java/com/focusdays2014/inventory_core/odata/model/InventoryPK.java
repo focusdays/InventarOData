@@ -9,7 +9,8 @@ import javax.persistence.*;
  */
 @Embeddable
 public class InventoryPK implements Serializable {
-	private static final long serialVersionUID = 2434718109916344805L;
+	//default serial version id, required for serializable classes.
+	private static final long serialVersionUID = 1L;
 
 	private int inventoryID;
 
