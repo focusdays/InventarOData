@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Location.findAll", query="SELECT l FROM Location l")
 public class Location implements Serializable {
-	private static final long serialVersionUID = 3000233443320358499L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int locationID;

@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `inventory42` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `inventory42`;
+CREATE DATABASE  IF NOT EXISTS `inventorydb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `inventorydb`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost   Database: inventory42
+-- Host: localhost   Database: inventorydb
 -- ------------------------------------------------------
 -- Server version	5.6.14
 
@@ -34,9 +34,9 @@ CREATE TABLE `Commodity` (
   `mutationTimestamp` datetime NOT NULL,
   `commodity_commodityID` int(11) DEFAULT NULL,
   PRIMARY KEY (`commodityID`),
-  UNIQUE KEY `commodityID_UNIQUE` (`commodityID`),
-  KEY `fk_commodity_commodity1_idx` (`commodity_commodityID`),
-  CONSTRAINT `fk_commodity_commodity1` FOREIGN KEY (`commodity_commodityID`) REFERENCES `Commodity` (`commodityID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  UNIQUE KEY `commodityID_UNIQUE` (`commodityID`)
+  /*, KEY `fk_commodity_commodity1_idx` (`commodity_commodityID`),
+  CONSTRAINT `fk_commodity_commodity1` FOREIGN KEY (`commodity_commodityID`) REFERENCES `Commodity` (`commodityID`) ON DELETE NO ACTION ON UPDATE NO ACTION*/
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -14,10 +14,12 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Commodity.findAll", query="SELECT c FROM Commodity c")
 public class Commodity implements Serializable {
-	private static final long serialVersionUID = 4381530028393292397L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int commodityID;
+
+	private int commodity_commodityID;
 
 	private String commodityPicture;
 
@@ -31,14 +33,6 @@ public class Commodity implements Serializable {
 	private Date mutationTimestamp;
 
 	private int roomType;
-
-	//bi-directional many-to-one association to Commodity
-	@ManyToOne
-	private Commodity commodity;
-
-	//bi-directional many-to-one association to Commodity
-	@OneToMany(mappedBy="commodity")
-	private List<Commodity> commodities;
 
 	//bi-directional many-to-many association to Inventory
 	@ManyToMany
@@ -64,6 +58,14 @@ public class Commodity implements Serializable {
 
 	public void setCommodityID(int commodityID) {
 		this.commodityID = commodityID;
+	}
+
+	public int getCommodity_commodityID() {
+		return this.commodity_commodityID;
+	}
+
+	public void setCommodity_commodityID(int commodity_commodityID) {
+		this.commodity_commodityID = commodity_commodityID;
 	}
 
 	public String getCommodityPicture() {
@@ -112,36 +114,6 @@ public class Commodity implements Serializable {
 
 	public void setRoomType(int roomType) {
 		this.roomType = roomType;
-	}
-
-	public Commodity getCommodity() {
-		return this.commodity;
-	}
-
-	public void setCommodity(Commodity commodity) {
-		this.commodity = commodity;
-	}
-
-	public List<Commodity> getCommodities() {
-		return this.commodities;
-	}
-
-	public void setCommodities(List<Commodity> commodities) {
-		this.commodities = commodities;
-	}
-
-	public Commodity addCommodity(Commodity commodity) {
-		getCommodities().add(commodity);
-		commodity.setCommodity(this);
-
-		return commodity;
-	}
-
-	public Commodity removeCommodity(Commodity commodity) {
-		getCommodities().remove(commodity);
-		commodity.setCommodity(null);
-
-		return commodity;
 	}
 
 	public List<Inventory> getInventories() {

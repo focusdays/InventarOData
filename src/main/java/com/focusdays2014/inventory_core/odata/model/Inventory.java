@@ -1,9 +1,7 @@
 package com.focusdays2014.inventory_core.odata.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -16,23 +14,11 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Inventory.findAll", query="SELECT i FROM Inventory i")
 public class Inventory implements Serializable {
-	private static final long serialVersionUID = 7790496648806854392L;
+	private static final long serialVersionUID = 1L;
 
-//	@EmbeddedId
-//	private InventoryPK id;
-	
-	// TODO: Workaround
-	@Id
-	private int inventoryID;
-	public int getInventoryID() {
-		return inventoryID;
-	}
-	public void setInventoryID(int inventoryID) {
-		this.inventoryID = inventoryID;
-	}
+	@EmbeddedId
+	private InventoryPK id;
 
-	
-	
 	private int currency;
 
 	private String inventoryTitle;
@@ -46,41 +32,28 @@ public class Inventory implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date mutationTimestamp;
 
-	//bi-directional many-to-many association to Commodity
-	//TODO: With Hibernate Bug Workaround -reverse JoinTable
-	//@ManyToMany(mappedBy="inventories")
-	@ManyToMany
-	@JoinTable(
-			name="inventory_has_commodity"
-			, joinColumns={
-				@JoinColumn(name="inventory_inventoryID", referencedColumnName="inventoryID"),
-				@JoinColumn(name="inventory_location_locationID", referencedColumnName="location_locationID"),
-				@JoinColumn(name="inventory_person_personID", referencedColumnName="person_personID")
-				}
-			, inverseJoinColumns={
-				@JoinColumn(name="commodity_commodityID")
-				}
-			)
-		private List<Commodity> commodities;
+	//bi-directional many-to-one association to Person
+	@ManyToOne
+	private Person person;
 
 	//bi-directional many-to-one association to Location
 	@ManyToOne
 	private Location location;
 
-	//bi-directional many-to-one association to Person
-	@ManyToOne
-	private Person person;
+	//bi-directional many-to-many association to Commodity
+	@ManyToMany(mappedBy="inventories")
+	private List<Commodity> commodities;
 
 	public Inventory() {
 	}
 
-//	public InventoryPK getId() {
-//		return this.id;
-//	}
-//
-//	public void setId(InventoryPK id) {
-//		this.id = id;
-//	}
+	public InventoryPK getId() {
+		return this.id;
+	}
+
+	public void setId(InventoryPK id) {
+		this.id = id;
+	}
 
 	public int getCurrency() {
 		return this.currency;
@@ -130,12 +103,12 @@ public class Inventory implements Serializable {
 		this.mutationTimestamp = mutationTimestamp;
 	}
 
-	public List<Commodity> getCommodities() {
-		return this.commodities;
+	public Person getPerson() {
+		return this.person;
 	}
 
-	public void setCommodities(List<Commodity> commodities) {
-		this.commodities = commodities;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public Location getLocation() {
@@ -146,12 +119,12 @@ public class Inventory implements Serializable {
 		this.location = location;
 	}
 
-	public Person getPerson() {
-		return this.person;
+	public List<Commodity> getCommodities() {
+		return this.commodities;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setCommodities(List<Commodity> commodities) {
+		this.commodities = commodities;
 	}
 
 }
