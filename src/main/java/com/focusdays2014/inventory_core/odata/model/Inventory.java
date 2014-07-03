@@ -1,7 +1,9 @@
 package com.focusdays2014.inventory_core.odata.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -16,8 +18,18 @@ import java.util.List;
 public class Inventory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private InventoryPK id;
+//	@EmbeddedId
+//	private InventoryPK id;
+	
+	// TODO: Workaround
+	@Id
+	private int inventoryID;
+	public int getInventoryID() {
+		return inventoryID;
+	}
+	public void setInventoryID(int inventoryID) {
+		this.inventoryID = inventoryID;
+	}
 
 	private int currency;
 
@@ -39,21 +51,22 @@ public class Inventory implements Serializable {
 	//bi-directional many-to-one association to Location
 	@ManyToOne
 	private Location location;
-
-	//bi-directional many-to-many association to Commodity
-	@ManyToMany(mappedBy="inventories")
+	
+	//bi-directional many-to-one association to Inventory
+	@OneToMany(mappedBy="inventory")
 	private List<Commodity> commodities;
-
+		
+		
 	public Inventory() {
 	}
 
-	public InventoryPK getId() {
-		return this.id;
-	}
-
-	public void setId(InventoryPK id) {
-		this.id = id;
-	}
+//	public InventoryPK getId() {
+//		return this.id;
+//	}
+//
+//	public void setId(InventoryPK id) {
+//		this.id = id;
+//	}
 
 	public int getCurrency() {
 		return this.currency;
@@ -118,13 +131,13 @@ public class Inventory implements Serializable {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-
 	public List<Commodity> getCommodities() {
-		return this.commodities;
+		return commodities;
 	}
-
 	public void setCommodities(List<Commodity> commodities) {
 		this.commodities = commodities;
 	}
+	
+	
 
 }

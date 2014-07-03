@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `inventory3` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `inventory3`;
+CREATE DATABASE  IF NOT EXISTS `inventory4` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `inventory4`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost   Database: inventory3
+-- Host: localhost   Database: inventory4
 -- ------------------------------------------------------
 -- Server version	5.6.14
 
@@ -20,24 +20,23 @@ USE `inventory3`;
 --
 -- Table structure for table `Commodity`
 --
-
 DROP TABLE IF EXISTS `Commodity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Commodity` (
-  `commodityID` int(11) NOT NULL AUTO_INCREMENT,
+  `commodityID` int(11) NOT NULL,
   `commodityTitle` varchar(255) DEFAULT NULL,
   `commodityType` int(2) DEFAULT NULL,
   `roomType` int(2) DEFAULT NULL,
   `commodityPrice` decimal(10,2) DEFAULT NULL,
   `commodityPicture` varchar(255) NOT NULL,
   `mutationTimestamp` datetime NOT NULL,
-  `commodity_commodityID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`commodityID`),
-  UNIQUE KEY `commodityID_UNIQUE` (`commodityID`)
-  /*, KEY `fk_commodity_commodity1_idx` (`commodity_commodityID`),
-  CONSTRAINT `fk_commodity_commodity1` FOREIGN KEY (`commodity_commodityID`) REFERENCES `Commodity` (`commodityID`) ON DELETE NO ACTION ON UPDATE NO ACTION*/
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `inventory_inventoryID` int(11) NOT NULL,
+  PRIMARY KEY (`commodityID`,`inventory_inventoryID`),
+  UNIQUE KEY `commodityID_UNIQUE` (`commodityID`),
+  KEY `fk_commodity_inventory_idx` (`inventory_inventoryID`),
+  CONSTRAINT `fk_commodity_inventory` FOREIGN KEY (`inventory_inventoryID`) REFERENCES `Inventory` (`inventoryID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +45,7 @@ CREATE TABLE `Commodity` (
 
 LOCK TABLES `Commodity` WRITE;
 /*!40000 ALTER TABLE `Commodity` DISABLE KEYS */;
-INSERT INTO `Commodity` VALUES (1,'Chair Toro Rosso',1,NULL,1234.99,'chair.jpg','2014-06-22 00:01:00',3),(2,'Tisch Yellow Duck',1,NULL,2222.00,'duck.jpg','2014-06-22 00:01:00',3),(3,'Esszimmer Max',NULL,1,0.00,'esszimmer.jpg','2014-06-22 00:01:00',NULL);
+INSERT INTO `Commodity` VALUES (1,'Chair Toro Rosso',1,NULL,1234.99,'chair.jpg','2014-06-22 00:01:00',1),(2,'Tisch Yellow Duck',1,NULL,2222.00,'duck.jpg','2014-06-22 00:01:00',1),(3,'Esszimmer Max',NULL,1,0.00,'esszimmer.jpg','2014-06-22 00:01:00',1);
 /*!40000 ALTER TABLE `Commodity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,35 +112,6 @@ LOCK TABLES `Inventory` WRITE;
 /*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
 INSERT INTO `Inventory` VALUES (1,'Hausrat von Muster',0.00,1,1,'2014-06-22 00:01:00',1,'max@muster.ch',1),(2,'Uhren von Dachs',10000.00,2,1,'2014-06-22 00:01:00',1,'max@dachs.ch',2);
 /*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `inventory_has_commodity`
---
-
-DROP TABLE IF EXISTS `inventory_has_commodity`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `inventory_has_commodity` (
-  `inventory_inventoryID` int(11) NOT NULL,
-  `inventory_person_personID` varchar(200) NOT NULL,
-  `inventory_location_locationID` int(11) NOT NULL,
-  `commodity_commodityID` int(11) NOT NULL,
-  KEY `fk_inventory_has_commodity_commodity1_idx` (`commodity_commodityID`),
-  KEY `fk_inventory_has_commodity_inventory1_idx` (`inventory_inventoryID`,`inventory_person_personID`,`inventory_location_locationID`),
-  CONSTRAINT `fk_inventory_has_commodity_inventory1` FOREIGN KEY (`inventory_inventoryID`, `inventory_person_personID`, `inventory_location_locationID`) REFERENCES `Inventory` (`inventoryID`, `person_personID`, `location_locationID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inventory_has_commodity_commodity1` FOREIGN KEY (`commodity_commodityID`) REFERENCES `Commodity` (`commodityID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `inventory_has_commodity`
---
-
-LOCK TABLES `inventory_has_commodity` WRITE;
-/*!40000 ALTER TABLE `inventory_has_commodity` DISABLE KEYS */;
-INSERT INTO `inventory_has_commodity` VALUES (1,'max@muster.ch',1,1),(1,'max@muster.ch',1,2),(1,'max@muster.ch',1,3);
-/*!40000 ALTER TABLE `inventory_has_commodity` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
